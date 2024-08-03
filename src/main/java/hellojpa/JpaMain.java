@@ -13,16 +13,12 @@ public class JpaMain {
         tx.begin();
         try {
             // 비영속
-            Member member = new Member();
-            member.setId(100L);
-            member.setName("Hello JPA");
-
+            Member member1 = em.find(Member.class, 150L);
+            member1.setName("John Doe");
+//            em.persist(member1);
             // 영속
-            System.out.println("Before");
-            em.persist(member);
-            System.out.println("After");
 
-            tx.commit();
+            tx.commit(); // 여기서 Transaction을 commit한 순간에 위의 내용에 대한 SQL쿼리문을 DB에 전송
         } catch (Exception e) {
             tx.rollback();
         } finally {
